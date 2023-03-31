@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_PASSWORD: pass
       POSTGRES_USER: user
-      POSTGRES_DB: register
+      POSTGRES_DB: dev-register
     ports:
       - 5432:5432
 

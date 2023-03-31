@@ -4,4 +4,8 @@ See projekt on loodud Taltechi IT süsteemide arenduse bakalaurse lõputöö raa
 
 ## Rakenduse käivitamine
 ## Rakenduse seadistamine
-## Litsents
+## Arenduses kasutatud vahendid
+
+[CompileDaemon](https://github.com/githubnemo/CompileDaemon) - Utiil rakenduse automaatseks laadimiseks faili muutuse korral.
+
+## [Litsents](.LICENSE)
