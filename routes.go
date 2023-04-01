@@ -7,4 +7,7 @@ import (
 
 func Routes(app *fiber.App) {
 	app.Get("/", controllers.MainIndex)
+	app.Get("/leidmine", controllers.FindingsIndex)
+	app.Get("/konserveerimine", controllers.ConservationsIndex)
+	app.Get("/ekspertimine", controllers.AssesmentsIndex)
 }
