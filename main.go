@@ -23,5 +23,7 @@ func main() {
 
 	Routes(app)
 
-	app.Listen(":" + os.Getenv("PORT"))
+	if err := app.Listen(":" + os.Getenv("PORT")); err != nil {
+		panic(err)
+	}
 }
