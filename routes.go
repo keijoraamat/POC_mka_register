@@ -8,6 +8,8 @@ import (
 func Routes(app *fiber.App) {
 	app.Get("/", controllers.MainIndex)
 	app.Get("/leidmine", controllers.FindingsIndex)
+	app.Get("/leidmine/lisa", controllers.FindingsNewFinding)
+	app.Post("/leidmine/lisa", controllers.FindingsCreateFinding)
 	app.Get("/konserveerimine", controllers.ConservationsIndex)
 	app.Get("/ekspertimine", controllers.AssesmentsIndex)
 }

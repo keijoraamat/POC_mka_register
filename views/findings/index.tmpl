@@ -1,5 +1,32 @@
 {{template "partials/top"}}
 
 <h1>Leidmine</h1>
+<a class="btn btn-success" href="/leidmine/lisa" role="button">Lisa akt</a>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">WD Akti number</th>
+      <th scope="col">Leidja nimi</th>
+      <th scope="col">Leide</th>
+      <th scope="col">Staatus</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    {{range .Acts }}
+      <tr>
+        <th scope="row">{{.ID}}</th>
+        <td>{{.WDActNumber}}</td>
+        <td>{{.FinderName}}</td>
+        <td>_</td>
+        <td>@mdo</td>
+      </tr>
+    {{end}}
+  </tbody>
+</table>
+{{range .Acts}}
+{{.}}
+{{end}}
+
 
 {{template "partials/bottom"}}

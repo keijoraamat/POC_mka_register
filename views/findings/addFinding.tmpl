@@ -1,0 +1,94 @@
+{{template "partials/top"}}
+
+<h1>Leidmine</h1>
+<form action="/leidmine/lisa" method="POST" />
+<div class="container">
+    <div class="form-group">
+    <div class="row aligin-items-start">
+      <div class="col">
+        <div class="row mb-3">
+          <div class="col">
+            <label for="finderName" class="form-label">Leidja</label>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="finderName" id="finderName" aria-describedby="finderName">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="finderIdNumber" class="form-label">Isikukood</label>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="finderIdNumber" id="finderIdNumber" aria-describedby="finderIdNumber">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="recieverName" class="form-label">Vastuvõtja</label>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="recieverName" id="recieverName" aria-describedby="recieverName">
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row mb-4">
+          <div class="col">
+            <label for="findingType" class="form-label">Leidmise tüüp</label>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="findingType" id="findingType" aria-describedby="findingType" value="detektor">
+          </div>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" name="findersFee" id="findersFee">
+          <label class="form-check-label" for="findersFee">Leiutasu</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" name id="resiginOwnership">
+          <label class="form-check-label" for="resiginOwnership">Omandiõigus</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" name="remainAnonymous" id="remainAnonymous">
+          <label class="form-check-label" for="remainAnonymous">Anonüümsus</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row mb-4 ">
+          <div class="col align-items-center">
+            <label for="transferDate" class="form-label">Üleandmise aeg</label>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="transferDate" id="transferDate" aria-describedby="transferDate" value="dd/mm/yyyy">
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col">
+            <label for="transferLocation" class="form-label">Üleandmise koht</label>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="transferLocation" id="transferLocation" aria-describedby="transferLocation">
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col">
+            <label for="wdActNumber" class="form-label">WD Akti number</label>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="wdActNumber" id="wdActNumber" aria-describedby="wdActNumber">
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ if eq .Act.ID  0 }}
+     
+    <p>{{ .Act.ID }} </p>
+    {{ else }}
+    <button type="submit" class="btn btn-primary">Salvesta akt</button>
+    {{ end }}
+  </div>
+</div>
+</form>
+<p> {{.}}</p>
+<p> {{.Errors}}</p>
+{{template "partials/bottom"}}

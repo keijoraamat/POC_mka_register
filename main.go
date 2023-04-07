@@ -10,6 +10,12 @@ import (
 
 func init() {
 	initializer.LoadEnvVariables()
+	initializer.ConnectToDatabase()
+	if os.Getenv("APP_ENV") == "dev" {
+
+		initializer.SyncDB()
+		initializer.SeedFindingsActs()
+	}
 }
 
 func main() {
@@ -19,7 +25,7 @@ func main() {
 		Views: engine,
 	})
 
-	app.Static("/", "/public")
+	app.Static("/", "./public")
 
 	Routes(app)
 
