@@ -9,7 +9,7 @@ import (
 
 var db *gorm.DB
 
-func SaveAct(act *models.Act) (ID uint, err error) {
+func SaveAct(act *models.FindingAct) (ID uint, err error) {
 	log.Println("SaveAct called")
 	result := db.Create(&act)
 

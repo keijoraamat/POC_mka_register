@@ -10,7 +10,7 @@ import (
 
 func FindingsIndex(c *fiber.Ctx) error {
 
-	var acts []models.Act
+	var acts []models.FindingAct
 	result := initializer.DB.Find(&acts)
 	if result.Error != nil {
 		log.Println("Error getting Acts.")
@@ -23,7 +23,7 @@ func FindingsIndex(c *fiber.Ctx) error {
 
 func FindingsNewFinding(c *fiber.Ctx) error {
 
-	var acts []models.Act
+	var acts []models.FindingAct
 	result := initializer.DB.Find(&acts)
 	if result.Error != nil {
 		log.Println("Error getting Acts.")
@@ -34,7 +34,7 @@ func FindingsNewFinding(c *fiber.Ctx) error {
 
 func FindingsFetchFinding(c *fiber.Ctx) error {
 
-	var acts []models.Act
+	var acts []models.FindingAct
 	result := initializer.DB.Find(&acts)
 	if result.Error != nil {
 		log.Println("Error getting Acts.")
@@ -46,7 +46,7 @@ func FindingsFetchFinding(c *fiber.Ctx) error {
 }
 
 func FindingsCreateFinding(c *fiber.Ctx) error {
-	var body models.Act
+	var body models.FindingAct
 	var errors = make(map[string]string)
 
 	if err := c.BodyParser(&body); err != nil {
@@ -73,5 +73,5 @@ func FindingsCreateFinding(c *fiber.Ctx) error {
 }
 
 func FindingsAddLocation(c *fiber.Ctx) error {
-	
+
 }

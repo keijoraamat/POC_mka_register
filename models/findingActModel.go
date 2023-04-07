@@ -4,7 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Act struct {
+type FindingAct struct {
 	gorm.Model
 	FinderName       string
 	FinderIdNumber   string

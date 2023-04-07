@@ -4,9 +4,9 @@ import "github.com/keijoraamat/mka_register/models"
 
 func SeedFindingsActs() error {
 
-	var acts = make([]models.Act, 3)
+	var acts = make([]models.FindingAct, 3)
 
-	var one = &models.Act{
+	var one = &models.FindingAct{
 		FinderName:       "Mari Maasikas",
 		FinderIdNumber:   "EE12345667890",
 		RecieverName:     "Tuule Tallerma",
@@ -18,7 +18,7 @@ func SeedFindingsActs() error {
 		WDActNumber:      "33.66453",
 		Status:           "töös",
 	}
-	var two = &models.Act{
+	var two = &models.FindingAct{
 		FinderName:       "Mati Kurikas",
 		FinderIdNumber:   "EE2345678900",
 		RecieverName:     "Tuule Tallerma",
@@ -30,7 +30,7 @@ func SeedFindingsActs() error {
 		WDActNumber:      "33.234523",
 		Status:           "arhiiv",
 	}
-	var three = &models.Act{
+	var three = &models.FindingAct{
 		FinderName:       "Mari Maasikas",
 		FinderIdNumber:   "EE12345667890",
 		RecieverName:     "Tuuve Tallerma",
