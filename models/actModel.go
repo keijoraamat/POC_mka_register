@@ -16,5 +16,4 @@ type Act struct {
 	TransferLocation string
 	WDActNumber      string
 	Status           string
-	Location         []Location
 }

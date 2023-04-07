@@ -71,3 +71,7 @@ func FindingsCreateFinding(c *fiber.Ctx) error {
 		"Act": &body,
 	})
 }
+
+func FindingsAddLocation(c *fiber.Ctx) error {
+	
+}
