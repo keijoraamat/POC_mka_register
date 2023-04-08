@@ -1,8 +1,17 @@
 package initializer
 
-import "github.com/keijoraamat/mka_register/models"
+import (
+	"errors"
 
-func SeedFindingsActs() error {
+	"github.com/keijoraamat/mka_register/models"
+	"gorm.io/gorm"
+)
+
+func SeedDatabase() {
+	seedFindingsActs()
+}
+
+func seedFindingsActs() {
 
 	var acts = make([]models.FindingAct, 3)
 
@@ -47,6 +56,8 @@ func SeedFindingsActs() error {
 	acts[1] = *two
 	acts[2] = *three
 
-	result := DB.Create(&acts)
-	return result.Error
+	check := DB.First(&one)
+	if errors.Is(check.Error, gorm.ErrRecordNotFound) {
+		DB.Create(&acts)
+	}
 }

@@ -7,5 +7,4 @@ type Location struct {
 	County        string
 	Farmsted      string
 	CadastralUnit string
-	ActID         uint
 }

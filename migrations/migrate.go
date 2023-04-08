@@ -11,5 +11,9 @@ func init() {
 }
 
 func main() {
-	initializer.DB.AutoMigrate(&models.Act{})
+	initializer.DB.AutoMigrate(
+		&models.FindingAct{},
+		&models.Location{},
+		&models.FindingLocation{},
+	)
 }

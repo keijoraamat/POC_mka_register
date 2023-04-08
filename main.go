@@ -14,7 +14,7 @@ func init() {
 	if os.Getenv("APP_ENV") == "dev" {
 
 		initializer.SyncDB()
-		initializer.SeedFindingsActs()
+		initializer.SeedDatabase()
 	}
 }
 
