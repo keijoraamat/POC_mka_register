@@ -8,8 +8,10 @@ import (
 
 type FindingLocation struct {
 	gorm.Model
-	FindingAct FindingAct
-	Location   Location
-	From       time.Time
-	Until      time.Time
+	FindingActID uint `gorm:"primaryKey"`
+	FindingAct   FindingAct
+	LocationID   uint `gorm:"primaryKey"`
+	Location     Location
+	From         time.Time
+	Until        time.Time
 }

@@ -2,6 +2,7 @@ package initializer
 
 import (
 	"errors"
+	"log"
 
 	"github.com/keijoraamat/mka_register/models"
 	"gorm.io/gorm"
@@ -57,7 +58,10 @@ func seedFindingsActs() {
 	acts[2] = *three
 
 	check := DB.First(&one)
+	log.Println("Dev db seeding result:", check.RowsAffected)
+	log.Println("Dev db seeding error:", check.Error)
 	if errors.Is(check.Error, gorm.ErrRecordNotFound) {
 		DB.Create(&acts)
 	}
+
 }

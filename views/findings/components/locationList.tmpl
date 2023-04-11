@@ -1,0 +1,24 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Maakond</th>
+      <th scope="col">Vald</th>
+      <th scope="col">Küla</th>
+      <th scope="col">KÜ lähinimi</th>
+      <th scope="col">KÜ</th>
+      <th scope="col">Leide kokku</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    {{range .Locs }}
+      <tr>
+        <td>{{.County}}</td>
+        <td>{{.Parish}}</td>
+        <td>{{.Village}}</td>
+        <td>{{.CadastralUnitCode}}</td>
+        <td>{{.CadastralUnitName}}</td>
+        <td>{{.FindingsAmount}}</td>
+      </tr>
+    {{end}}
+  </tbody>
+</table>

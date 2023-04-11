@@ -16,4 +16,5 @@ type FindingAct struct {
 	TransferLocation string
 	WDActNumber      string
 	Status           string
+	Locations        []*Location `gorm:"many2many:finding_locations;"`
 }

@@ -1,0 +1,32 @@
+<form action="/leidmine/akt/{{ .Act.ID }}/lisa_asukoht" method="POST" />
+<input type="hidden" id="findingActId" name="findingActId" value={{.Act.ID}}>
+Lisa asukoht aktile {{ .Act.WDActNumber }}
+<div class="row mb-3">
+  <div class="col">
+    <label for="county" class="form-label">Maakond</label>
+    <input type="input" class="form-control" id="county" name="county">
+  </div>
+  <div class="col">
+    <label for="parish" class="form-label">Vald</label>
+    <input type="input" class="form-control" id="parish" name="parish">
+  </div>
+  <div class="col">
+    <label for="village" class="form-label">Küla</label>
+    <input type="input" class="form-control" id="village" name="village">
+  </div>
+  <div class="col">
+    <label for="cadastralUnitName" class="form-label">KÜ lähinimi</label>
+    <input type="input" class="form-control" id="cadastralUnitName" name="cadastralUnitName">
+  </div>
+  <div class="col">
+    <label for="cadastralUnitCode" class="form-label">KÜ</label>
+    <input type="input" class="form-control" id="cadastralUnitCode" name="cadastralUnitCode">
+  </div>
+  <div class="col">
+    <label for="findingsAmount" class="form-label">Leide kokku</label>
+    <input type="number" min="0" class="form-control" id="findingsAmount" name="findingsAmount">
+  </div>
+  
+</div>
+<button type="submit" class="btn btn-primary">Salvesta asukoht</button>
+</form>

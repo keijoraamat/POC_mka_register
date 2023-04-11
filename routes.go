@@ -8,7 +8,10 @@ import (
 func Routes(app *fiber.App) {
 	app.Get("/", controllers.MainIndex)
 	app.Get("/leidmine", controllers.FindingsIndex)
-	app.Get("/leidmine/lisa", controllers.FindingsNewFinding)
+	app.Get("/leidmine/akt/:id", controllers.FindingsFetchFinding)
+	app.Get("/leidmine/akt/:id/lisa_asukoht", controllers.FindingsFetchFindingLocationAdding)
+	app.Post("/leidmine/akt/:id/lisa_asukoht", controllers.FindingsAddLocation)
+	app.Get("/leidmine/lisa_akt", controllers.FindingsNewFinding)
 	app.Post("/leidmine/lisa", controllers.FindingsCreateFinding)
 	app.Get("/konserveerimine", controllers.ConservationsIndex)
 	app.Get("/ekspertimine", controllers.AssesmentsIndex)

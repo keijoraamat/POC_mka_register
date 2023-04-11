@@ -1,0 +1,13 @@
+{{template "partials/top"}}
+
+<h1>Leidmine</h1>
+{{ template "findings/components/fetchActAttributes" .}}
+{{ if .Locs }}
+{{ template "findings/components/locationList" . }}
+{{ end }}
+{{ template "findings/components/addLocation" . }} 
+<p> {{.}}</p>
+<p> {{.Act}}</p>
+<p> {{.Errors}}</p>
+<p> {{.Locs}}</p>
+{{template "partials/bottom"}}
