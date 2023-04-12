@@ -158,7 +158,7 @@ func FindingsFetchFindingLocationAdding(c *fiber.Ctx) error {
 	log.Println("Act with location: ", &act.ID)
 
 	return c.Render("findings/addLocationToFinding", fiber.Map{
-		"Act":  &act,
+		"Act": &act,
 		"Locs": &locs,
 	})
 }
