@@ -7,9 +7,11 @@
       <th scope="col">KÜ lähinimi</th>
       <th scope="col">KÜ</th>
       <th scope="col">Leide kokku</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody class="table-group-divider">
+    {{ $actId := .Act.ID }}
     {{range .Locs }}
       <tr>
         <td>{{.County}}</td>
@@ -18,6 +20,7 @@
         <td>{{.CadastralUnitName}}</td>
         <td>{{.CadastralUnitCode}}</td>
         <td>{{.FindingsAmount}}</td>
+        <td><form action="/leidmine/akt/{{$actId}}/eemalda_asukoht/{{ .ID }}" method="POST"><button type="submit" class="btn btn-danger">-</button></form></td>
       </tr>
     {{end}}
   </tbody>

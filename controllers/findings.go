@@ -7,6 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/keijoraamat/mka_register/initializer"
 	"github.com/keijoraamat/mka_register/models"
+	"github.com/keijoraamat/mka_register/repository"
 )
 
 func FindingsIndex(c *fiber.Ctx) error {
@@ -131,10 +132,7 @@ func FindingsAddLocation(c *fiber.Ctx) error {
 
 	var locs []models.Location
 
-	locs, err = getLocationsByFindingActID(c.Params("id"))
-	if err != nil {
-		log.Println("Cold not get all locations by finding act id")
-	}
+	locs, _ = repository.GetLocationsByFindingActID(c.Params("id"))
 
 	return c.Render("findings/addLocationToFinding", fiber.Map{
 		"Act":  &act,
@@ -153,32 +151,24 @@ func FindingsFetchFindingLocationAdding(c *fiber.Ctx) error {
 		return result.Error
 	}
 
-	locs, _ = getLocationsByFindingActID(c.Params("id"))
+	locs, _ = repository.GetLocationsByFindingActID(c.Params("id"))
 
 	log.Println("Act with location: ", &act.ID)
 
 	return c.Render("findings/addLocationToFinding", fiber.Map{
-		"Act": &act,
+		"Act":  &act,
 		"Locs": &locs,
 	})
 }
 
-func getLocationsByFindingActID(actID string) ([]models.Location, error) {
-	var locs []models.Location
+func FindingsRemoveLocation(c *fiber.Ctx) error {
 
-	id, err := strconv.ParseUint(actID, 0, 20)
+	log.Printf("Removing location %s from act %s", c.Params("loc_id"), c.Params("id"))
+
+	err := repository.RemoveLocationByID(c.Params("loc_id"))
 	if err != nil {
-		log.Println("Error converting id from url to int")
+		return err
 	}
 
-	err = initializer.DB.
-		Joins("JOIN finding_locations ON locations.id = finding_locations.location_id").
-		Where("finding_locations.finding_act_id = ?", id).
-		Find(&locs).Error
-	if err != nil {
-		return nil, err
-	}
-	log.Println("Locations by id:", locs)
-
-	return locs, nil
+	return c.Redirect("/leidmine/akt/" + c.Params("id") + "/lisa_asukoht")
 }

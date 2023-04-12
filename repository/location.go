@@ -39,3 +39,16 @@ func AddLocation(l models.Location) (models.Location, error) {
 
 	return l, nil
 }
+
+func RemoveLocationByID(id string) error {
+
+	result := initializer.DB.Delete(&models.Location{}, id)
+	if result.Error != nil {
+		log.Println("could not remove loction by id: ", id)
+		return result.Error
+	}
+
+	initializer.DB.Model(&models.FindingLocation{}).Association("Locations").Delete(&models.Location{}, id)
+
+	return nil
+}
