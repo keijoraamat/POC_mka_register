@@ -5,6 +5,7 @@ import (
 
 	"github.com/keijoraamat/mka_register/models"
 	"gorm.io/driver/postgres"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
@@ -16,11 +17,11 @@ func ConnectToDatabase() {
 
 	if os.Getenv("APP_ENV") == "dev" {
 		dsn = os.Getenv("DEV_DB_URL")
+		DB, err = gorm.Open(sqlite.Open("register.db"), &gorm.Config{})
 	} else {
 		dsn = os.Getenv("DB_URL")
+		DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	}
-
-	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		panic("DB connection failed")
