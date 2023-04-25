@@ -22,6 +22,7 @@ import (
 //		CONSTRAINT fk_finding_locations_location FOREIGN KEY (location_id) REFERENCES public.locations(id)
 //	);
 type FindingLocation struct {
+	gorm.Model
 	FindingActID uint `gorm:"primaryKey"`
 	FindingAct   FindingAct
 	LocationID   uint `gorm:"primaryKey"`

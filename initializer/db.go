@@ -30,8 +30,8 @@ func ConnectToDatabase() {
 
 func SyncDB() {
 	DB.AutoMigrate(
-		&models.FindingLocation{},
 		&models.FindingAct{},
 		&models.Location{},
+		&models.FindingLocation{},
 	)
 }
