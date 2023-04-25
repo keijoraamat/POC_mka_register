@@ -21,9 +21,9 @@ func GetLocationsByFindingActID(actID string) ([]models.Location, error) {
 		Where("finding_locations.finding_act_id = ?", id).
 		Find(&locs).Error
 	if err != nil {
+		log.Printf("Error quering locations for finding act %s", actID)
 		return nil, err
 	}
-	log.Println("Locations by id:", locs)
 
 	return locs, nil
 }
