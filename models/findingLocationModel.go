@@ -29,8 +29,4 @@ type FindingLocation struct {
 	Location     Location
 	From         time.Time
 	Until        time.Time
-	CreatedAt    time.Time
-	UpdatedAt    time.Time
-	DeletedAt    gorm.DeletedAt
-	ID           uint `gorm:"primaryKey"`
 }
