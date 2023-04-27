@@ -1,16 +1,24 @@
 
-<div class="col aligin-items-end">
-  <div class="row aligin-items-end">
-    LOC> {{ .Act.TransferLocation }}
-  </div>
-  <div class="row aligin-items-end">
-    DATE> .Act.TransferDate
+<div class="d-flex justify-content-end">
+  <div class="p-0">
+    {{ .Act.TransferLocation }}
   </div>
 </div>
-
-<div class="row aligin-items-center">
-  <em>Arheoloogiliste leidude</em>
+<div class="d-flex justify-content-end">
+  <div class="p-0">
+    .Act.TransferDate
+  </div>
 </div>
-<div class="row aligin-items-center">
-  <em>üleandmise-vastuvõtmise akt nr {{ .Act.WDActNumber }}</em>
+<span></span>
+<div class="d-flex justify-content-center">
+  <div class="p-0"><b>Arheoloogiliste leidude</b></div>
+</div>
+<div class="d-flex justify-content-center">
+  <div class="p-0"><b>üleandmise-vastuvõtmise akt nr {{ .Act.WDActNumber }}</b></div>
+</div>
+<div>
+Tulenevalt Muinsuskaitseseadusest § 24, 27–28 Muinsuskaitseamet (edaspidi vastuvõtja või 
+MKA) registrikood 70000958, keda esindab arheoloogia nõunik Nele Kangert ja {{ .Act.FinderName }} 
+isikukood:  {{ .Act.FinderIdNumber }}, telefoni nr …., meiliaadress …. (edaspidi üleandja) koostasid 
+kultuuriväärtusega arheoloogiliste leidude üleandmise-vastuvõtmise akti alljärgnevas:
 </div>
