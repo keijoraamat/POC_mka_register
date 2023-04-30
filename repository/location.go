@@ -6,7 +6,16 @@ import (
 
 	"github.com/keijoraamat/mka_register/initializer"
 	"github.com/keijoraamat/mka_register/models"
+	"gorm.io/gorm"
 )
+
+func GetAllLocations(db *gorm.DB) (loc []models.Location, err error) {
+	result := db.Find(&loc)
+	if result.Error != nil {
+		log.Println("Could not get all locations")
+	}
+	return
+}
 
 func GetLocationsByFindingActID(actID string) ([]models.Location, error) {
 	var locs []models.Location
