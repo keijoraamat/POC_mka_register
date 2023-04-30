@@ -19,5 +19,8 @@ jobs:
       with:
         go-version: ${{ env.GO_VER }}
 
+    - name: Get dependencies
+      run: go mod tidy
+
     - name: Test
       run: go test -v ./...
