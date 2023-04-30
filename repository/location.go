@@ -37,19 +37,18 @@ func GetLocationsByFindingActID(actID string) ([]models.Location, error) {
 	return locs, nil
 }
 
-func AddLocation(l models.Location) (models.Location, error) {
+func AddLocation(l models.Location, db *gorm.DB) (models.Location, error) {
 
-	result := initializer.DB.Create(&l)
+	result := db.Create(&l)
 	if result.Error != nil {
 		log.Println("could no save finding location: ", &l)
 		log.Println("location saving error: ", result.Error)
 	}
-	log.Printf("Location county %s with id %d added to DB", l.County, l.ID)
 
 	return l, nil
 }
 
-func RemoveLocationByID(id string) error {
+func RemoveLocationByID(id string, db *gorm.DB) error {
 
 	result := initializer.DB.Delete(&models.Location{}, id)
 	if result.Error != nil {

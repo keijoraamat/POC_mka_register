@@ -165,7 +165,7 @@ func FindingsRemoveLocation(c *fiber.Ctx) error {
 
 	log.Printf("Removing location %s from act %s", c.Params("loc_id"), c.Params("id"))
 
-	err := repository.RemoveLocationByID(c.Params("loc_id"))
+	err := repository.RemoveLocationByID(c.Params("loc_id"), initializer.DB)
 	if err != nil {
 		return err
 	}
