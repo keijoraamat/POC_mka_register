@@ -84,16 +84,10 @@ func FindingsCreateFinding(c *fiber.Ctx) error {
 
 func FindingsAddLocation(c *fiber.Ctx) error {
 	var act models.FindingAct
-	/*result := initializer.DB.Find(&act, c.Params("id"))
-	if result.Error != nil {
-		log.Println("Error getting Act with id ", c.Params("id"))
-	}*/
 	err := initializer.DB.First(&act, c.Params("id")).Error
 	if err != nil {
 		log.Println("could not get act by id ", err)
 	}
-
-	log.Println("Got location data: ", string(c.Body()))
 
 	var loc models.Location
 	var findingLocation models.FindingLocation
@@ -115,8 +109,7 @@ func FindingsAddLocation(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println("could not get loc by id ", err)
 	}
-
-	//err = initializer.DB.Model(&act).Association("Locations").Append(&loc).Error
+ 
 	if err != nil {
 		log.Println("could not get act by id ", err)
 	}
