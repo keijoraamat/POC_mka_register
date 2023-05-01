@@ -3,11 +3,14 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/keijoraamat/mka_register/controllers"
-)
+	"github.com/keijoraamat/mka_register/initializer"
+) 
 
 func Routes(app *fiber.App) {
+	var findingsActController controllers.FindingActController = controllers.FindingActController{DB: initializer.DB}
+
 	app.Get("/", controllers.MainIndex)
-	app.Get("/leidmine", controllers.FindingsIndex)
+	app.Get("/leidmine", findingsActController.FindingsIndex)
 	app.Get("/leidmine/akt/:id", controllers.FindingsFetchFinding)
 	app.Get("/leidmine/akt/:id/lisa_asukoht", controllers.FindingsFetchFindingLocationAdding)
 	app.Post("/leidmine/akt/:id/lisa_asukoht", controllers.FindingsAddLocation)

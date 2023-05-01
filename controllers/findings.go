@@ -8,12 +8,17 @@ import (
 	"github.com/keijoraamat/mka_register/initializer"
 	"github.com/keijoraamat/mka_register/models"
 	"github.com/keijoraamat/mka_register/repository"
+	"gorm.io/gorm"
 )
 
-func FindingsIndex(c *fiber.Ctx) error {
+type FindingActController struct {
+	DB *gorm.DB
+}
+
+func (fac *FindingActController) FindingsIndex(c *fiber.Ctx) error {
 
 	var acts []models.FindingAct
-	result := initializer.DB.Find(&acts)
+	result := fac.DB.Find(&acts)
 	if result.Error != nil {
 		log.Println("Error getting Acts.")
 	}
@@ -109,7 +114,7 @@ func FindingsAddLocation(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println("could not get loc by id ", err)
 	}
- 
+
 	if err != nil {
 		log.Println("could not get act by id ", err)
 	}
