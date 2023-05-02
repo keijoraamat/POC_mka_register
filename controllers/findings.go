@@ -15,7 +15,7 @@ type FindingActController struct {
 	DB *gorm.DB
 }
 
-func (fac *FindingActController) FindingsIndex(c *fiber.Ctx) error {
+func (fac *FindingActController) Index(c *fiber.Ctx) error {
 
 	var acts []models.FindingAct
 	result := fac.DB.Find(&acts)
@@ -28,10 +28,10 @@ func (fac *FindingActController) FindingsIndex(c *fiber.Ctx) error {
 	})
 }
 
-func FindingsNewFinding(c *fiber.Ctx) error {
+func (fac *FindingActController) NewFinding(c *fiber.Ctx) error {
 
 	var acts []models.FindingAct
-	result := initializer.DB.Find(&acts)
+	result := fac.DB.Find(&acts)
 	if result.Error != nil {
 		log.Println("Error getting Acts.")
 	}
@@ -39,10 +39,10 @@ func FindingsNewFinding(c *fiber.Ctx) error {
 	return c.Render("findings/addFinding", fiber.Map{})
 }
 
-func FindingsFetchFinding(c *fiber.Ctx) error {
+func (fac *FindingActController) GetFindingByID(c *fiber.Ctx) error {
 
 	var act models.FindingAct
-	result := initializer.DB.Find(&act, c.Params("id"))
+	result := fac.DB.Find(&act, c.Params("id"))
 	if result.Error != nil {
 		log.Println("Error getting Act with id ", c.Params("id"))
 	}
@@ -52,7 +52,7 @@ func FindingsFetchFinding(c *fiber.Ctx) error {
 	})
 }
 
-func FindingsCreateFinding(c *fiber.Ctx) error {
+func (fac *FindingActController) CreateFinding(c *fiber.Ctx) error {
 	var body models.FindingAct
 	var errors = make(map[string]string)
 
@@ -72,7 +72,7 @@ func FindingsCreateFinding(c *fiber.Ctx) error {
 		})
 	}
 
-	result := initializer.DB.Create(&body)
+	result := fac.DB.Create(&body)
 	if result.Error != nil {
 		log.Println("could no save finding act")
 	}
@@ -87,9 +87,9 @@ func FindingsCreateFinding(c *fiber.Ctx) error {
 	})
 }
 
-func FindingsAddLocation(c *fiber.Ctx) error {
+func (fac *FindingActController) AddLocation(c *fiber.Ctx) error {
 	var act models.FindingAct
-	err := initializer.DB.First(&act, c.Params("id")).Error
+	err := fac.DB.First(&act, c.Params("id")).Error
 	if err != nil {
 		log.Println("could not get act by id ", err)
 	}
@@ -102,7 +102,7 @@ func FindingsAddLocation(c *fiber.Ctx) error {
 	}
 
 	if loc.IsLocationInputOK() {
-		result := initializer.DB.Create(&loc)
+		result := fac.DB.Create(&loc)
 		if result.Error != nil {
 			log.Println("could no save finding location: ", &loc)
 		}
@@ -110,7 +110,7 @@ func FindingsAddLocation(c *fiber.Ctx) error {
 
 	}
 
-	err = initializer.DB.First(&loc, &loc.ID).Error
+	err = fac.DB.First(&loc, &loc.ID).Error
 	if err != nil {
 		log.Println("could not get loc by id ", err)
 	}
@@ -121,7 +121,7 @@ func FindingsAddLocation(c *fiber.Ctx) error {
 	findingLocation.FindingAct = act
 	findingLocation.Location = loc
 
-	result := initializer.DB.Create(&findingLocation)
+	result := fac.DB.Create(&findingLocation)
 	if result.Error != nil {
 		log.Println("Could not save to DB findingLocation:", findingLocation)
 	}
@@ -139,11 +139,11 @@ func FindingsAddLocation(c *fiber.Ctx) error {
 	})
 }
 
-func FindingsFetchFindingLocationAdding(c *fiber.Ctx) error {
+func (fac *FindingActController) FetchFindingLocationAdding(c *fiber.Ctx) error {
 	var act models.FindingAct
 	var locs []models.Location
 
-	result := initializer.DB.Find(&act, c.Params("id"))
+	result := fac.DB.Find(&act, c.Params("id"))
 	if result.Error != nil {
 		log.Println("Error getting Act with id ", c.Params("id"))
 		return result.Error
@@ -159,7 +159,7 @@ func FindingsFetchFindingLocationAdding(c *fiber.Ctx) error {
 	})
 }
 
-func FindingsRemoveLocation(c *fiber.Ctx) error {
+func (fac *FindingActController) RemoveLocation(c *fiber.Ctx) error {
 
 	log.Printf("Removing location %s from act %s", c.Params("loc_id"), c.Params("id"))
 
