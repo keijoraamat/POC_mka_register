@@ -1,8 +1,8 @@
 package controllers
 
 import (
+	"fmt"
 	"log"
-	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/keijoraamat/mka_register/initializer"
@@ -77,14 +77,8 @@ func (fac *FindingActController) CreateFinding(c *fiber.Ctx) error {
 		log.Println("could no save finding act")
 	}
 
-	log.Printf("Finding act %d added to DB", body.ID)
-	r := "/leidmine/akt/" + strconv.FormatUint(uint64(body.ID), 10)
-	log.Printf("Redirecting to %s", r)
-	c.Redirect(r)
-
-	return c.Render("findings/addLocationToFinding", fiber.Map{
-		"Act": &body,
-	})
+	redirectUrl := fmt.Sprintf("/leidmine/akt/%d/lisa_asukoht", body.ID)
+	return c.Redirect(redirectUrl)
 }
 
 func (fac *FindingActController) AddLocation(c *fiber.Ctx) error {

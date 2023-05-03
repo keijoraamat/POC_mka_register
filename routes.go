@@ -15,7 +15,7 @@ func Routes(app *fiber.App) {
 	app.Get("/leidmine/akt/:id/lisa_asukoht", findingsActController.FetchFindingLocationAdding)
 	app.Post("/leidmine/akt/:id/lisa_asukoht", findingsActController.AddLocation)
 	app.Post("/leidmine/akt/:id/eemalda_asukoht/:loc_id", findingsActController.RemoveLocation)
-	app.Get("/leidmine/lisa_akt", findingsActController.NewFinding)
+	app.Get("/leidmine/lisa", findingsActController.NewFinding)
 	app.Post("/leidmine/lisa", findingsActController.CreateFinding)
 	app.Get("/konserveerimine", controllers.ConservationsIndex)
 	app.Get("/ekspertimine", controllers.AssesmentsIndex)
