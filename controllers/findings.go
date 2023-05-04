@@ -30,12 +30,6 @@ func (fac *FindingActController) Index(c *fiber.Ctx) error {
 
 func (fac *FindingActController) NewFinding(c *fiber.Ctx) error {
 
-	var acts []models.FindingAct
-	result := fac.DB.Find(&acts)
-	if result.Error != nil {
-		log.Println("Error getting Acts.")
-	}
-
 	return c.Render("findings/addFinding", fiber.Map{})
 }
 
@@ -77,7 +71,7 @@ func (fac *FindingActController) CreateFinding(c *fiber.Ctx) error {
 		log.Println("could no save finding act")
 	}
 
-	redirectUrl := fmt.Sprintf("/leidmine/akt/%d/lisa_asukoht", body.ID)
+	redirectUrl := fmt.Sprintf("/leidmine/akt/%d", body.ID)
 	return c.Redirect(redirectUrl)
 }
 
