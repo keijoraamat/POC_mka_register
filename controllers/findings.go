@@ -5,7 +5,6 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/keijoraamat/mka_register/initializer"
 	"github.com/keijoraamat/mka_register/models"
 	"github.com/keijoraamat/mka_register/repository"
 	"gorm.io/gorm"
@@ -103,9 +102,6 @@ func (fac *FindingActController) AddLocation(c *fiber.Ctx) error {
 		log.Println("could not get loc by id ", err)
 	}
 
-	if err != nil {
-		log.Println("could not get act by id ", err)
-	}
 	findingLocation.FindingAct = act
 	findingLocation.Location = loc
 
@@ -118,7 +114,7 @@ func (fac *FindingActController) AddLocation(c *fiber.Ctx) error {
 
 	var locs []models.Location
 
-	locs, _ = repository.GetLocationsByFindingActID(c.Params("id"))
+	locs, _ = repository.GetLocationsByFindingActID(c.Params("id"), fac.DB)
 
 	return c.Render("findings/addLocationToFinding", fiber.Map{
 		"Act":  &act,
@@ -131,15 +127,8 @@ func (fac *FindingActController) FetchFindingLocationAdding(c *fiber.Ctx) error 
 	var act models.FindingAct
 	var locs []models.Location
 
-	result := fac.DB.Find(&act, c.Params("id"))
-	if result.Error != nil {
-		log.Println("Error getting Act with id ", c.Params("id"))
-		return result.Error
-	}
-
-	locs, _ = repository.GetLocationsByFindingActID(c.Params("id"))
-
-	log.Println("Act with location: ", &act.ID)
+	repository.GetFindingActById(&act, c.Params("id"), fac.DB)
+	locs, _ = repository.GetLocationsByFindingActID(c.Params("id"), fac.DB)
 
 	return c.Render("findings/addLocationToFinding", fiber.Map{
 		"Act":  &act,
@@ -150,11 +139,7 @@ func (fac *FindingActController) FetchFindingLocationAdding(c *fiber.Ctx) error 
 func (fac *FindingActController) RemoveLocation(c *fiber.Ctx) error {
 
 	log.Printf("Removing location %s from act %s", c.Params("loc_id"), c.Params("id"))
-
-	err := repository.RemoveLocationByID(c.Params("loc_id"), initializer.DB)
-	if err != nil {
-		return err
-	}
+	repository.RemoveLocationByID(c.Params("loc_id"), fac.DB)
 
 	return c.Redirect("/leidmine/akt/" + c.Params("id") + "/lisa_asukoht")
 }

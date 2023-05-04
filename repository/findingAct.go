@@ -15,3 +15,12 @@ func GetAllFindingActs(db *gorm.DB) (acts []models.FindingAct, err error) {
 
 	return
 }
+
+func GetFindingActById(act *models.FindingAct, id string, db *gorm.DB) (tx *gorm.DB){
+	result := db.Find(&act, id)
+	if result.Error != nil {
+		log.Println("Error getting Act with id ", id)
+	}
+
+	return
+}

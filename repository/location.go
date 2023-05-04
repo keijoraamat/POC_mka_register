@@ -4,7 +4,6 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/keijoraamat/mka_register/initializer"
 	"github.com/keijoraamat/mka_register/models"
 	"gorm.io/gorm"
 )
@@ -17,7 +16,7 @@ func GetAllLocations(db *gorm.DB) (loc []models.Location, err error) {
 	return
 }
 
-func GetLocationsByFindingActID(actID string) ([]models.Location, error) {
+func GetLocationsByFindingActID(actID string, db *gorm.DB) ([]models.Location, error) {
 	var locs []models.Location
 
 	id, err := strconv.ParseUint(actID, 0, 20)
@@ -25,7 +24,7 @@ func GetLocationsByFindingActID(actID string) ([]models.Location, error) {
 		log.Println("Error converting id from url to int")
 	}
 
-	err = initializer.DB.
+	err = db.
 		Joins("JOIN finding_locations ON locations.id = finding_locations.location_id").
 		Where("finding_locations.finding_act_id = ?", id).
 		Find(&locs).Error
@@ -50,13 +49,13 @@ func AddLocation(l models.Location, db *gorm.DB) (models.Location, error) {
 
 func RemoveLocationByID(id string, db *gorm.DB) error {
 
-	result := initializer.DB.Delete(&models.Location{}, id)
+	result := db.Delete(&models.Location{}, id)
 	if result.Error != nil {
 		log.Println("could not remove loction by id: ", id)
 		return result.Error
 	}
 
-	initializer.DB.Model(&models.FindingLocation{}).Association("Locations").Delete(&models.Location{}, id)
+	db.Model(&models.FindingLocation{}).Association("Locations").Delete(&models.Location{}, id)
 
 	return nil
 }
