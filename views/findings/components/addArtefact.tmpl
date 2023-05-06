@@ -1,0 +1,22 @@
+<form action="/leidmine/akt/{{ .Act.ID }}/asukoht/{{ .Loc.ID }}/uusleid" method="POST" />
+<p>Lisa uusleid</p>
+<div class="row mb-3">
+  <div class="col">
+    <label for="names" class="form-label">Leiud</label>
+    <input type="input" class="form-control" id="names" name="names">
+  </div>
+  <div class="col">
+    <label for="amount" class="form-label">Kogus</label>
+    <input type="input" class="form-control" id="amount" name="amount">
+  </div>
+  <div class="col">
+    <label for="xCoord" class="form-label">X-koordinaat</label>
+    <input type="input" class="form-control" id="xCoord" name="xCoord">
+  </div>
+  <div class="col">
+    <label for="yCoord" class="form-label">Y-kooordinaat</label>
+    <input type="input" class="form-control" id="yCoord" name="yCoord">
+  </div>  
+</div>
+<button type="submit" class="btn btn-primary">Salvesta leiud</button>
+</form>

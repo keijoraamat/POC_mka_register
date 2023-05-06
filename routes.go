@@ -13,6 +13,8 @@ func Routes(app *fiber.App) {
 	app.Get("/leidmine", findingsActController.Index)
 	app.Get("/leidmine/akt/:id", findingsActController.GetFindingByID)
 	app.Get("/leidmine/akt/:id/lisa_asukoht", findingsActController.FetchFindingLocationAdding)
+	app.Get("/leidmine/akt/:act_id/asukoht/:loc_id/uusleid", findingsActController.AddArtefact)
+	app.Post("/leidmine/akt/:act_id/asukoht/:loc_id/uusleid", findingsActController.SaveArtefact)
 	app.Post("/leidmine/akt/:id/lisa_asukoht", findingsActController.AddLocation)
 	app.Post("/leidmine/akt/:id/eemalda_asukoht/:loc_id", findingsActController.RemoveLocation)
 	app.Get("/leidmine/lisa", findingsActController.NewFinding)

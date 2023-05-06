@@ -143,3 +143,13 @@ func (fac *FindingActController) RemoveLocation(c *fiber.Ctx) error {
 
 	return c.Redirect("/leidmine/akt/" + c.Params("id") + "/lisa_asukoht")
 }
+
+func (fac *FindingActController) AddArtefact(c *fiber.Ctx) error {
+	log.Println("Getting AddArtefact()")
+	return c.Render("findings/addArtefact", fiber.Map{})
+}
+
+func (fac *FindingActController) SaveArtefact(c *fiber.Ctx) error {
+	log.Println("Getting SaveArtefact()")
+	return nil
+}
