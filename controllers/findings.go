@@ -115,16 +115,11 @@ func (fac *FindingActController) AddLocation(c *fiber.Ctx) error {
 	var locs []models.Location
 
 	locs, _ = repository.GetLocationsByFindingActID(c.Params("id"), fac.DB)
-	log.Println("locs len after getting from db: ", len(locs))
+
 	for i, l := range locs {
 		log.Printf("%d. Looking for location: %d artefacts\n", i, l.ID)
 		var artecats = repository.GetAllArtefactsByLocationID(l.ID, fac.DB)
 		l.Afacts = artecats
-		/*log.Println("loc esimene artefact: ", l.Artefacts[0])
-		log.Println("esimene artefact: ", artecats[0])
-		for j, art := range l.Artefacts {
-			log.Println("Loc art", art.ID, j)
-		}*/
 
 	}
 
@@ -143,35 +138,9 @@ func (fac *FindingActController) FetchFindingLocationAdding(c *fiber.Ctx) error 
 	locs, _ = repository.GetLocationsByFindingActID(c.Params("id"), fac.DB)
 
 	log.Println("locs len after getting from db: ", len(locs))
-	/*	for i, l := range locs {
-				err := fac.DB.
-					Joins("JOIN artefact_locations ON artefact_id = artefact_locations.artefact_id").
-					Where("artefact_locations.location_id = ?", l.ID).
-					Find(&l.Afacts).Error
-				if err != nil {
-					log.Printf("Error quering location artefacts with ID: %d", l.ID)
-					log.Panic(err)
-				}
-				log.Println("i", i)
-				//log.Println(l.Afacts)
-				log.Println("ii", i)
-			log.Printf("%d. Looking for location: %d artefacts\n", i, l.ID)
-				var artecats = repository.GetAllArtefactsByLocationID(l.ID, fac.DB)
-				l.Afacts = artecats
-				log.Println("loc esimene artefact: ", l.Artefacts[0])
-				log.Println("esimene artefact: ", artecats[0])
-				for j, art := range l.Artefacts {
-					log.Println("Loc art", art.ID, j)
-				}
-
-			}
-			log.Println("loc 1", locs)
-		//log.Println("loc 1, arf", repository.GetAllArtefactsByLocationID(locs[0].ID, fac.DB))
-		locs[0].Afacts[0] = models.Artefact{Name: "Kee",
-			YCoord: "YYY",
-			XCoord: "XXX",
-			Amount: 2,
-		}*/
+	for i := range locs {
+		locs[i].Afacts = append(locs[i].Afacts, repository.GetAllArtefactsByLocationID(locs[i].ID, fac.DB)...)
+	}
 
 	return c.Render("findings/addLocationToFinding", fiber.Map{
 		"Act":  &act,
@@ -224,25 +193,12 @@ func (fac *FindingActController) SaveArtefact(c *fiber.Ctx) error {
 
 	var act models.FindingAct
 	var locs []models.Location
-	log.Println("locs len before getting from db: ", len(locs))
 
 	repository.GetFindingActById(&act, actID, fac.DB)
 	locs, _ = repository.GetLocationsByFindingActID(actID, fac.DB)
 	log.Println("locs len after getting from db: ", len(locs))
-	for i, l := range locs {
-		log.Printf("%d. Looking for location: %d artefacts\n", i, l.ID)
-		//var artecats = repository.GetAllArtefactsByLocationID(l.ID, fac.DB)
-		l.Afacts = append(l.Afacts, models.Artefact{Name: "Kee",
-			YCoord: "YYY",
-			XCoord: "XXX",
-			Amount: 2,
-		})
-		/*log.Println("loc esimene artefact: ", l.Artefacts[0])
-		log.Println("esimene artefact: ", artecats[0])
-		for j, art := range l.Artefacts {
-			log.Println("Loc art", art.ID, j)
-		}*/
-
+	for i := range locs {
+		locs[i].Afacts = append(locs[i].Afacts, repository.GetAllArtefactsByLocationID(locs[i].ID, fac.DB)...)
 	}
 
 	log.Println(".....SaceArtefact() end.....")

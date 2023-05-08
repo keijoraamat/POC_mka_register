@@ -39,22 +39,16 @@ func AddArtefactLocation(al *models.ArtefactLocation, db *gorm.DB) {
 }
 
 func GetAllArtefactsByLocationID(loc_id uint, db *gorm.DB) []models.Artefact {
-	log.Println("GetAllArtefactsByLocationID() called")
+
 	var a []models.Artefact
 	err := db.
-		Joins("JOIN artefact_locations ON artefact_id = artefact_locations.artefact_id").
+		Joins("JOIN artefact_locations ON artefacts.id = artefact_locations.artefact_id").
 		Where("artefact_locations.location_id = ?", loc_id).
 		Find(&a).Error
 	if err != nil {
 		log.Printf("Error quering location artefacts with ID: %d", loc_id)
 		log.Panic(err)
 	}
-
-	log.Println("----------------\n")
-	log.Println("Got aretfacts for loc: ", loc_id, len(a))
-	/*for i, art := range a {
-		log.Println(i, art)
-	}*/
 
 	return a
 }
