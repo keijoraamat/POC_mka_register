@@ -10,7 +10,7 @@
       <th scope="col"></th>
     </tr>
   </thead>
-  <tbody class="table-group-divider">
+  <tbody>
     {{ $actId := .Act.ID }}
     {{range .Locs }}
       <tr>
@@ -22,10 +22,31 @@
         <td>{{.FindingsAmount}}</td>
         <td><form action="/leidmine/akt/{{$actId}}/eemalda_asukoht/{{ .ID }}" method="POST"><button type="submit" class="btn btn-danger">-</button></form></td>
         <td><a class="btn btn-success" href="/leidmine/akt/{{$actId}}/asukoht/{{ .ID }}/uusleid" role="button">+ leid</a></td>
-        <hr>Locs sisu> {{.}} <hr>
-        Locs .Afacts> {{.Afacts}}
-
       </tr>
+      <tr>
+        <td colspan="8">
+        <div style="float: right;">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Leid</th>
+              <th>Kogus</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{ range .Afacts }}
+            <tr>
+              <td> {{ .Name }}</td>
+              <td> {{ .Amount }}</td>
+              <td><a class="btn btn-warning" href="#" role="button">muuda</a></td>
+            </tr>
+            {{end}}
+            </tbody>
+          </table>
+          </div>
+        </td>
+     </tr>
     {{end}}
   </tbody>
 </table>
