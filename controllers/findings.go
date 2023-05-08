@@ -40,8 +40,20 @@ func (fac *FindingActController) GetFindingByID(c *fiber.Ctx) error {
 		log.Println("Error getting Act with id ", c.Params("id"))
 	}
 
-	return c.Render("findings/findingActOverview", fiber.Map{
-		"Act": &act,
+	var locs []models.Location
+
+	locs, _ = repository.GetLocationsByFindingActID(c.Params("id"), fac.DB)
+
+	for i, l := range locs {
+		log.Printf("%d. Looking for location: %d artefacts\n", i, l.ID)
+		var artecats = repository.GetAllArtefactsByLocationID(l.ID, fac.DB)
+		l.Afacts = artecats
+
+	}
+
+	return c.Render("findings/addLocationToFinding", fiber.Map{
+		"Act":  &act,
+		"Locs": &locs,
 	})
 }
 
