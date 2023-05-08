@@ -1,3 +1,4 @@
+{{.Locs}}
 <table class="table">
   <thead>
     <tr>
@@ -22,6 +23,9 @@
         <td>{{.FindingsAmount}}</td>
         <td><form action="/leidmine/akt/{{$actId}}/eemalda_asukoht/{{ .ID }}" method="POST"><button type="submit" class="btn btn-danger">-</button></form></td>
         <td><a class="btn btn-success" href="/leidmine/akt/{{$actId}}/asukoht/{{ .ID }}/uusleid" role="button">+ leid</a></td>
+        Locs sisu> {{.ID}}
+        Locs aretfaktid> {{.Afacts}}
+
       </tr>
     {{end}}
   </tbody>

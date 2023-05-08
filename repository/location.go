@@ -8,6 +8,17 @@ import (
 	"gorm.io/gorm"
 )
 
+func GetLocationById(id string, db *gorm.DB) models.Location {
+	var l models.Location
+
+	result := db.Find(&l, id)
+	if result.Error != nil {
+		log.Println("Error getting Location with id: ", id)
+	}
+
+	return l
+}
+
 func GetAllLocations(db *gorm.DB) (loc []models.Location, err error) {
 	result := db.Find(&loc)
 	if result.Error != nil {
