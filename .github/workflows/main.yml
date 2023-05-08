@@ -9,6 +9,7 @@ jobs:
     uses: ./.github/workflows/test.yml
 
   releases-matrix:
+    needs: test
     name: Release Go Binary
     runs-on: ubuntu-22.04
     strategy:
@@ -34,6 +35,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
-          project_path: "./cmd/test-binary"
-          binary_name: "test-binary"
+          project_path: "./"
+          binary_name: "register"
           extra_files: LICENSE README.md
