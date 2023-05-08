@@ -5,22 +5,35 @@ on:
 
 jobs:
 
-  build:
+  test:
+    uses: ./.github/workflows/test.yml
+
+  releases-matrix:
+    name: Release Go Binary
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        goos: [linux, windows, darwin]
+        goarch: ["386", amd64]
+
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Get Go version
-      run: |
-        echo "GO_VER=`go list -m -f={{.GoVersion}}`" >> $GITHUB_ENV 
+      - name: Get Go version
+        run: |
+          echo "GO_VER=`go list -m -f={{.GoVersion}}`" >> $GITHUB_ENV 
 
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: ${{ env.GO_VER }}
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ env.GO_VER }}
+          cache-dependency-path: go.sum
 
-    - name: Get dependencies
-      run: go mod tidy
-
-    - name: Test
-      run: go test -v ./...
+      - uses: wangyoucao577/go-release-action@v1.33
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
+          project_path: "./cmd/test-binary"
+          binary_name: "test-binary"
+          extra_files: LICENSE README.md
