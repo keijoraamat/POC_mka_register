@@ -9,6 +9,8 @@ jobs:
     uses: ./.github/workflows/test.yml
 
   releases-matrix:
+    permissions:
+      packages: read|write
     needs: test
     name: Release Go Binary
     runs-on: ubuntu-22.04
