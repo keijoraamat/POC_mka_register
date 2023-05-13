@@ -76,7 +76,8 @@ func TestFinding_Act_Should_Be_Inserted_Into_DB_When_Form_Is_Submitted(t *testin
 
 	// Is the new act in DB?
 	var a models.FindingAct
-	result := db.Where("finder_name = ? AND wd_act_number = ? and reciever_name = ?", act.FinderName, act.WDActNumber, act.RecieverName).First(&a)
+	result := db.Where("finder_name = ? AND wd_act_number = ? and reciever_name = ?",
+			   act.FinderName, act.WDActNumber, act.RecieverName).First(&a)
 	if result.Error != nil {
 		t.Error("Could not find given act in DB")
 	}
