@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/keijoraamat/mka_register/helpers"
 	"github.com/keijoraamat/mka_register/models"
 	"github.com/keijoraamat/mka_register/repository"
 	"gorm.io/gorm"
@@ -52,37 +53,45 @@ func (fac *FindingActController) GetFindingByID(c *fiber.Ctx) error {
 	}
 
 	return c.Render("findings/addLocationToFinding", fiber.Map{
-		"Act":  &act,
+		"Act":  act.DataToTemplate(),
 		"Locs": &locs,
 	})
 }
 
 func (fac *FindingActController) CreateFinding(c *fiber.Ctx) error {
-	var body models.FindingAct
+	var findingAct models.FindingAct
 	var errors = make(map[string]string)
 
-	if err := c.BodyParser(&body); err != nil {
-		return err
-	}
+	log.Println("üleandmise aeg: ", c.FormValue("transferDate"))
+
+	findingAct.FinderName = c.FormValue("finderName")
+	findingAct.FinderIdNumber = c.FormValue("finderIdNumber")
+	findingAct.RecieverName = c.FormValue("recieverName")
+	findingAct.FindingType = c.FormValue("findingType")
+	findingAct.FindersFee = helpers.ParseBool(c.FormValue("findersFee"))
+	findingAct.ResiginOwnership = helpers.ParseBool(c.FormValue("resiginOwnership"))
+	findingAct.RemainAnonymous = helpers.ParseBool(c.FormValue("remainAnonymous"))
+	findingAct.TransferLocation = c.FormValue("transferLocation")
+	findingAct.TransferDate = helpers.ParseDate(c.FormValue("transferDate"))
+	findingAct.WDActNumber = c.FormValue("wdActNumber")
 
 	//TODO: validate all other fields also
-	if len(body.WDActNumber) == 0 {
+	if len(findingAct.WDActNumber) == 0 {
 		log.Println("No WD act number found. Creating finding act failed.")
-		log.Println("leidja: ", body.FinderName)
 
 		errors["wdError"] = "WD akti number puudu"
 		return c.Render("findings/addFinding", fiber.Map{
 			"Errors": &errors,
-			"Act":    &body,
+			"Act":    &findingAct,
 		})
 	}
 
-	result := fac.DB.Create(&body)
+	result := fac.DB.Create(&findingAct)
 	if result.Error != nil {
 		log.Println("could no save finding act")
 	}
 
-	redirectUrl := fmt.Sprintf("/leidmine/akt/%d", body.ID)
+	redirectUrl := fmt.Sprintf("/leidmine/akt/%d", findingAct.ID)
 	return c.Redirect(redirectUrl)
 }
 
