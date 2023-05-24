@@ -145,7 +145,7 @@ func (fac *FindingActController) AddLocation(c *fiber.Ctx) error {
 	}
 
 	return c.Render("findings/addLocationToFinding", fiber.Map{
-		"Act":  &act,
+		"Act":  act.DataToTemplate(),
 		"Loc":  &loc,
 		"Locs": &locs,
 	})
@@ -164,7 +164,7 @@ func (fac *FindingActController) FetchFindingLocationAdding(c *fiber.Ctx) error 
 	}
 
 	return c.Render("findings/addLocationToFinding", fiber.Map{
-		"Act":  &act,
+		"Act":  act.DataToTemplate(),
 		"Locs": &locs,
 	})
 }
@@ -224,7 +224,7 @@ func (fac *FindingActController) SaveArtefact(c *fiber.Ctx) error {
 
 	log.Println(".....SaceArtefact() end.....")
 	return c.Render("findings/addLocationToFinding", fiber.Map{
-		"Act":  &act,
+		"Act":  act.DataToTemplate(),
 		"Locs": &locs,
 	})
 }
