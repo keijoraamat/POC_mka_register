@@ -49,7 +49,7 @@ func (fa *FindingAct) DataToTemplate() (fav FindingActView) {
 	fav.TransferLocation = fa.TransferLocation
 	fav.WDActNumber = fa.WDActNumber
 
-	fav.TransferDate = fa.TransferDate.Format("02.11.1995")
+	fav.TransferDate = fa.TransferDate.Format("02.01.2006")
 
 	return
 }
