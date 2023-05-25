@@ -62,8 +62,6 @@ func (fac *FindingActController) CreateFinding(c *fiber.Ctx) error {
 	var findingAct models.FindingAct
 	var errors = make(map[string]string)
 
-	log.Println("üleandmise aeg: ", c.FormValue("transferDate"))
-
 	findingAct.FinderName = c.FormValue("finderName")
 	findingAct.FinderIdNumber = c.FormValue("finderIdNumber")
 	findingAct.RecieverName = c.FormValue("recieverName")

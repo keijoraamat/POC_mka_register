@@ -36,9 +36,9 @@ func TestFindings_Index_Should_Contain_List_Of_Findig_Acts(t *testing.T) {
 
 	// Is the response body containing initialli added acts?
 	assert.Contains(t, string(body), firstFindingAct.WDActNumber)
-	assert.Contains(t, string(body), firstFindingAct.FinderIdNumber)
-	assert.Contains(t, string(body), secondFindingAct.FinderIdNumber)
-	assert.Contains(t, string(body), secondFindingAct.FinderIdNumber)
+	assert.Contains(t, string(body), firstFindingAct.FinderName)
+	assert.Contains(t, string(body), secondFindingAct.WDActNumber)
+	assert.Contains(t, string(body), secondFindingAct.FinderName)
 
 }
 
@@ -61,8 +61,15 @@ func TestFinding_Act_Should_Be_Inserted_Into_DB_When_Form_Is_Submitted(t *testin
 	body := new(bytes.Buffer)
 	writer := multipart.NewWriter(body)
 	writer.WriteField("finderName", act.FinderName)
-	writer.WriteField("WDActNumber", act.WDActNumber)
-	writer.WriteField("RecieverName", act.RecieverName)
+	writer.WriteField("wdActNumber", act.WDActNumber)
+	writer.WriteField("recieverName", act.RecieverName)
+	writer.WriteField("finderIdNumber", act.FinderIdNumber)
+	writer.WriteField("findingType", act.FindingType)
+	writer.WriteField("findersFee", "on")
+	writer.WriteField("resiginOwnership", "on")
+	writer.WriteField("remainAnonymous", "")
+	writer.WriteField("transferDate", "dd.mm.yyyy")
+	writer.WriteField("transferLocation", act.TransferLocation)
 	writer.Close()
 
 	// Create request
