@@ -1,2 +1,4 @@
 mka_register
 *.db
+*.pdf
+.DS_Store

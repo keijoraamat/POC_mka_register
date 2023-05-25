@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/keijoraamat/mka_register/helpers"
 	"github.com/keijoraamat/mka_register/models"
 	"github.com/keijoraamat/mka_register/repository"
 	"gorm.io/gorm"
@@ -22,6 +23,7 @@ func (fac *FindingActController) Index(c *fiber.Ctx) error {
 		log.Println("Error getting Acts.")
 	}
 
+	helpers.CreateFile()
 	return c.Render("findings/index", fiber.Map{
 		"Acts": &acts,
 	})
