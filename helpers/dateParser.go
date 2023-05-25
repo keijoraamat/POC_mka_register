@@ -8,7 +8,7 @@ import (
 
 func ParseDate(dateStr string) (date time.Time) {
 
-	if dateStr == "dd.mm.yyyy" {
+	if dateStr == "dd.mm.yyyy" || dateStr == "" {
 		dateStr = time.Now().Format("02.01.2006")
 	}
 
