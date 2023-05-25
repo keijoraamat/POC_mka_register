@@ -18,13 +18,18 @@ type FindingActController struct {
 func (fac *FindingActController) Index(c *fiber.Ctx) error {
 
 	var acts []models.FindingAct
+	var viewableActs []models.FindingActView
 	result := fac.DB.Find(&acts)
 	if result.Error != nil {
 		log.Println("Error getting Acts.")
 	}
 
+	for _, act := range acts {
+		viewableActs = append(viewableActs, act.DataToTemplate())
+	}
+
 	return c.Render("findings/index", fiber.Map{
-		"Acts": &acts,
+		"Acts": &viewableActs,
 	})
 }
 

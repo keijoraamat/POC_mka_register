@@ -48,6 +48,7 @@ func (fa *FindingAct) DataToTemplate() (fav FindingActView) {
 	fav.RemainAnonymous = fa.RemainAnonymous
 	fav.TransferLocation = fa.TransferLocation
 	fav.WDActNumber = fa.WDActNumber
+	fav.Status = fa.Status
 
 	fav.TransferDate = fa.TransferDate.Format("02.01.2006")
 

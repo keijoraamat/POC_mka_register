@@ -3,6 +3,7 @@ package initializer
 import (
 	"errors"
 	"log"
+	"time"
 
 	"github.com/keijoraamat/mka_register/models"
 	"gorm.io/gorm"
@@ -15,6 +16,9 @@ func SeedDatabase() {
 func seedFindingsActs() {
 
 	var acts = make([]models.FindingAct, 3)
+	now := time.Now()
+	lastMonth := now.AddDate(0, -1, 0)
+	twoMonthsAgo := now.AddDate(0, -2, 0)
 
 	var one = &models.FindingAct{
 		FinderName:       "Mari Maasikas",
@@ -27,11 +31,12 @@ func seedFindingsActs() {
 		TransferLocation: "Fellin",
 		WDActNumber:      "33.66453",
 		Status:           "töös",
+		TransferDate:     now,
 	}
 	var two = &models.FindingAct{
 		FinderName:       "Mati Kurikas",
 		FinderIdNumber:   "EE2345678900",
-		RecieverName:     "Tuule Tallerma",
+		RecieverName:     "Tuule Kallermaa",
 		FindingType:      "detektor",
 		FindersFee:       true,
 		ResiginOwnership: true,
@@ -39,11 +44,12 @@ func seedFindingsActs() {
 		TransferLocation: "Dorpat",
 		WDActNumber:      "33.234523",
 		Status:           "arhiiv",
+		TransferDate:     lastMonth,
 	}
 	var three = &models.FindingAct{
 		FinderName:       "Mari Maasikas",
 		FinderIdNumber:   "EE12345667890",
-		RecieverName:     "Tuuve Tallerma",
+		RecieverName:     "Tuuve Mallerma",
 		FindingType:      "detektor",
 		FindersFee:       false,
 		ResiginOwnership: true,
@@ -51,6 +57,7 @@ func seedFindingsActs() {
 		TransferLocation: "Lindanise",
 		WDActNumber:      "44.66453",
 		Status:           "töös",
+		TransferDate:     twoMonthsAgo,
 	}
 
 	acts[0] = *one

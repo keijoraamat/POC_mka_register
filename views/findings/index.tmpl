@@ -10,6 +10,7 @@
       <th scope="col">Leidja nimi</th>
       <th scope="col">Leide</th>
       <th scope="col">Staatus</th>
+      <th scope="col">Lisatud</th>
     </tr>
   </thead>
   <tbody class="table-group-divider">
@@ -18,8 +19,9 @@
         <th scope="row"><a href="/leidmine/akt/{{.ID}}">{{.ID}}</th>
         <td>{{.WDActNumber}}</td>
         <td>{{.FinderName}}</td>
-        <td>_</td>
-        <td></td>
+        <td>/</td>
+        <td>{{.Status}}</td>
+        <td>{{.TransferDate}}</td>
       </tr>
     {{end}}
   </tbody>
