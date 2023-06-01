@@ -40,6 +40,6 @@ jobs:
           version: latest
           args: release --clean
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CD_GITHUB_TOKEN }}
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
