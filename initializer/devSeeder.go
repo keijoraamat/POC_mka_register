@@ -16,9 +16,9 @@ func SeedDatabase() {
 func seedFindingsActs() {
 
 	var acts = make([]models.FindingAct, 3)
-	now := time.Now()
-	lastMonth := now.AddDate(0, -1, 0)
-	twoMonthsAgo := now.AddDate(0, -2, 0)
+	now := time.Now().AddDate(0, 0, -9)
+	lastMonth := now.AddDate(0, -1, 11)
+	twoMonthsAgo := now.AddDate(0, -5, -6)
 
 	var one = &models.FindingAct{
 		FinderName:       "Mari Maasikas",

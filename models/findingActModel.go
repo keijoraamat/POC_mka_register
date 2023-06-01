@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/keijoraamat/mka_register/helpers"
 	"gorm.io/gorm"
 )
 
@@ -35,6 +36,8 @@ type FindingActView struct {
 	TransferDate     string
 	WDActNumber      string
 	Status           string
+	WeeksToEnd       float64
+	EndTime          string
 }
 
 func (fa *FindingAct) DataToTemplate() (fav FindingActView) {
@@ -52,5 +55,8 @@ func (fa *FindingAct) DataToTemplate() (fav FindingActView) {
 
 	fav.TransferDate = fa.TransferDate.Format("02.01.2006")
 
+	fav.WeeksToEnd = helpers.WeeksToEnd(fa.TransferDate)
+
+	fav.EndTime = fa.TransferDate.AddDate(0, 6, 0).Format("02.01.2006")
 	return
 }

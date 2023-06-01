@@ -9,8 +9,9 @@
       <th scope="col">WD Akti number</th>
       <th scope="col">Leidja nimi</th>
       <th scope="col">Leide</th>
-      <th scope="col">Staatus</th>
       <th scope="col">Lisatud</th>
+      <th scope="col">Tähtaeg</th>
+      <th scope="col">Nädalaid jäänud</th>
     </tr>
   </thead>
   <tbody class="table-group-divider">
@@ -20,8 +21,9 @@
         <td>{{.WDActNumber}}</td>
         <td>{{.FinderName}}</td>
         <td>/</td>
-        <td>{{.Status}}</td>
         <td>{{.TransferDate}}</td>
+        <td>{{.EndTime}}</td>
+        <td>{{.WeeksToEnd}}</td>
       </tr>
     {{end}}
   </tbody>
