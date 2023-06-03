@@ -1,6 +1,10 @@
 package main
 
 import (
+	"embed"
+	"io/fs"
+	"log"
+	"net/http"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -18,8 +22,15 @@ func init() {
 	}
 }
 
+//go:embed views/*
+var viewsFS embed.FS
+
 func main() {
-	engine := html.New("./views", ".tmpl")
+	viewsRoot, err := fs.Sub(viewsFS, "views")
+	if err != nil {
+		log.Fatal(err)
+	}
+	engine := html.NewFileSystem(http.FS(viewsRoot), ".tmpl")
 
 	app := fiber.New(fiber.Config{
 		Views: engine,
