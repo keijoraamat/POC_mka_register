@@ -19,6 +19,7 @@ func (fac *FindingActController) Index(c *fiber.Ctx) error {
 
 	var acts []models.FindingAct
 	var viewableActs []models.FindingActView
+	var artefacts int
 	result := fac.DB.Find(&acts)
 	if result.Error != nil {
 		log.Println("Error getting Acts.")
@@ -26,10 +27,16 @@ func (fac *FindingActController) Index(c *fiber.Ctx) error {
 
 	for _, act := range acts {
 		viewableActs = append(viewableActs, act.DataToTemplate())
+		var locs []models.Location
+		locs, _ = repository.GetLocationsByFindingActID(fmt.Sprint(act.ID), fac.DB)
+		for _, loc := range locs {
+			artefacts = artefacts + int(loc.FindingsAmount)
+		}
 	}
 
 	return c.Render("findings/index", fiber.Map{
-		"Acts": &viewableActs,
+		"Acts":      &viewableActs,
+		"Artefacts": &artefacts,
 	})
 }
 
@@ -50,11 +57,8 @@ func (fac *FindingActController) GetFindingByID(c *fiber.Ctx) error {
 
 	locs, _ = repository.GetLocationsByFindingActID(c.Params("id"), fac.DB)
 
-	for i, l := range locs {
-		log.Printf("%d. Looking for location: %d artefacts\n", i, l.ID)
-		var artecats = repository.GetAllArtefactsByLocationID(l.ID, fac.DB)
-		l.Afacts = artecats
-
+	for i := range locs {
+		locs[i].Afacts = append(locs[i].Afacts, repository.GetAllArtefactsByLocationID(locs[i].ID, fac.DB)...)
 	}
 
 	return c.Render("findings/addLocationToFinding", fiber.Map{

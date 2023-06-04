@@ -1,5 +1,6 @@
 {{template "partials/top"}}
 
+{{ $artefacts := .Artefacts }}
 <h1>Leidmine</h1>
 <a class="btn btn-success" href="/leidmine/lisa" role="button">Lisa akt</a>
 <table class="table">
@@ -20,7 +21,7 @@
         <th scope="row"><a href="/leidmine/akt/{{.ID}}">{{.ID}}</th>
         <td>{{.WDActNumber}}</td>
         <td>{{.FinderName}}</td>
-        <td>/</td>
+        <td>{{$artefacts}}</td>
         <td>{{.TransferDate}}</td>
         <td>{{.EndTime}}</td>
         <td>{{.WeeksToEnd}}</td>
