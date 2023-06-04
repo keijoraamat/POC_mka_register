@@ -19,24 +19,22 @@ func (fac *FindingActController) Index(c *fiber.Ctx) error {
 
 	var acts []models.FindingAct
 	var viewableActs []models.FindingActView
-	var artefacts int
 	result := fac.DB.Find(&acts)
 	if result.Error != nil {
 		log.Println("Error getting Acts.")
 	}
 
-	for _, act := range acts {
+	for i, act := range acts {
 		viewableActs = append(viewableActs, act.DataToTemplate())
 		var locs []models.Location
 		locs, _ = repository.GetLocationsByFindingActID(fmt.Sprint(act.ID), fac.DB)
 		for _, loc := range locs {
-			artefacts = artefacts + int(loc.FindingsAmount)
+			viewableActs[i].Artefacts = int(loc.FindingsAmount)
 		}
 	}
 
 	return c.Render("findings/index", fiber.Map{
-		"Acts":      &viewableActs,
-		"Artefacts": &artefacts,
+		"Acts": &viewableActs,
 	})
 }
 

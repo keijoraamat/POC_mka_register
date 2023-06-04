@@ -38,6 +38,7 @@ type FindingActView struct {
 	Status           string
 	WeeksToEnd       float64
 	EndTime          string
+	Artefacts        int
 }
 
 func (fa *FindingAct) DataToTemplate() (fav FindingActView) {
