@@ -140,11 +140,8 @@ func (fac *FindingActController) AddLocation(c *fiber.Ctx) error {
 
 	locs, _ = repository.GetLocationsByFindingActID(c.Params("id"), fac.DB)
 
-	for i, l := range locs {
-		log.Printf("%d. Looking for location: %d artefacts\n", i, l.ID)
-		var artecats = repository.GetAllArtefactsByLocationID(l.ID, fac.DB)
-		l.Afacts = artecats
-
+	for i := range locs {
+		locs[i].Afacts = append(locs[i].Afacts, repository.GetAllArtefactsByLocationID(locs[i].ID, fac.DB)...)
 	}
 
 	return c.Render("findings/addLocationToFinding", fiber.Map{
@@ -161,7 +158,6 @@ func (fac *FindingActController) FetchFindingLocationAdding(c *fiber.Ctx) error 
 	repository.GetFindingActById(&act, c.Params("id"), fac.DB)
 	locs, _ = repository.GetLocationsByFindingActID(c.Params("id"), fac.DB)
 
-	log.Println("locs len after getting from db: ", len(locs))
 	for i := range locs {
 		locs[i].Afacts = append(locs[i].Afacts, repository.GetAllArtefactsByLocationID(locs[i].ID, fac.DB)...)
 	}
