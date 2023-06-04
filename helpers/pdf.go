@@ -80,7 +80,7 @@ func CreateFile(findingAct *FindingActPdf) {
 	})
 
 	m.Row(10, func() {
-		m.Text("      \t6.	Üleandja " + parseWish(findingAct.RemainAnonymous) + " jääda anonüümseks")
+		m.Text("      \t6. Üleandja " + parseWish(findingAct.RemainAnonymous) + " jääda anonüümseks")
 	})
 
 	m.Row(10, func() {

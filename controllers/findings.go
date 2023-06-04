@@ -246,6 +246,7 @@ func (fac *FindingActController) GetFindingActPDF(c *fiber.Ctx) error {
 	}
 
 	findingActPdf.FinderName = findingAct.FinderName
+	findingActPdf.FinderIdNumber = findingAct.FinderIdNumber
 	findingActPdf.TransferLocation = findingAct.TransferLocation
 	findingActPdf.TransferDate = findingAct.DataToTemplate().TransferDate
 	findingActPdf.WDActNumber = findingAct.WDActNumber
