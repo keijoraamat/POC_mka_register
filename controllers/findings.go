@@ -231,3 +231,8 @@ func (fac *FindingActController) SaveArtefact(c *fiber.Ctx) error {
 		"Locs": &locs,
 	})
 }
+
+func (fac *FindingActController) GetFindingActPDF(c *fiber.Ctx) error {
+	log.Println("Creating PDF for finding act with id: ", c.Params("id"))
+	return nil
+}

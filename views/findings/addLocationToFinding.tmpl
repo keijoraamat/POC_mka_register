@@ -5,7 +5,13 @@
 {{ if .Locs }}
 {{ template "findings/components/locationList" . }}
 {{ end }}
-{{ template "findings/components/addLocation" . }} 
+{{ template "findings/components/addLocation" . }}
+
+<div class="row mt-2">
+  <form action="/leidmine/akt/{{ .Act.ID }}/pdf" method="GET" />
+    <button type="submit" class="btn btn-warning">PDF</button>
+  </form>
+</div>
 
 {{template "partials/bottom"}}
  
