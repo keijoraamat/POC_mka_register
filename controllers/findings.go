@@ -234,5 +234,28 @@ func (fac *FindingActController) SaveArtefact(c *fiber.Ctx) error {
 
 func (fac *FindingActController) GetFindingActPDF(c *fiber.Ctx) error {
 	log.Println("Creating PDF for finding act with id: ", c.Params("id"))
-	return nil
+	var findingAct models.FindingAct
+	var findingActPdf helpers.FindingActPdf
+	var locs []models.Location
+	var artefacts int
+	repository.GetFindingActById(&findingAct, c.Params("id"), fac.DB)
+	locs, _ = repository.GetLocationsByFindingActID(c.Params("id"), fac.DB)
+
+	for _, loc := range locs {
+		artefacts = artefacts + int(loc.FindingsAmount)
+	}
+
+	findingActPdf.FinderName = findingAct.FinderName
+	findingActPdf.TransferLocation = findingAct.TransferLocation
+	findingActPdf.TransferDate = findingAct.DataToTemplate().TransferDate
+	findingActPdf.WDActNumber = findingAct.WDActNumber
+	findingActPdf.RecieverName = findingAct.RecieverName
+	findingActPdf.RemainAnonymous = findingAct.RemainAnonymous
+	findingActPdf.ResiginOwnership = findingAct.ResiginOwnership
+	findingActPdf.FindersFee = findingAct.FindersFee
+	findingActPdf.Artefacts = fmt.Sprint(artefacts)
+
+	helpers.CreateFile(&findingActPdf)
+
+	return c.SendFile("test.pdf")
 }
