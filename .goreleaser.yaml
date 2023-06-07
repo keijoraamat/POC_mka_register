@@ -11,9 +11,10 @@ builds:
         {{- if eq .Os "windows" }}
           {{- if eq .Arch "amd64" }}CC=x86_64-w64-mingw32-gcc{{- end }}
         {{- end }}
+    goos:
+      - windows
     goarch:
       - amd64
-      - arm
     skip: false
     ignore:
       - goos: linux
