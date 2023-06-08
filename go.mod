@@ -7,7 +7,7 @@ require (
 	github.com/gofiber/template v1.8.1
 	github.com/johnfercher/maroto v0.42.0
 	github.com/joho/godotenv v1.5.1
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.8.4
 	gorm.io/driver/postgres v1.5.2
 	gorm.io/driver/sqlite v1.4.4
 	gorm.io/gorm v1.25.0
